@@ -17,7 +17,7 @@
                 Es stehen leider keine Gerichte in dieser Kategorie zur Auswahl bereit.
             </div>
             <div v-for="dish in categorizedDishes[categoryKey]" :key="dish.id">
-                <dish-card :dish="dish" @addDish="addDish" @removeDish="removeDish"></dish-card>
+                <dish-card :dish="dish" @add-dish="addDish" @remove-dish="removeDish"></dish-card>
             </div>
         </section>
     </div>

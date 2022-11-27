@@ -30,13 +30,19 @@
             <input v-model="checked" @change="addOrRemoveFromMenu" :id="dish.id" :name="dish.name" type="checkbox"
                 class="h-4 w-4 rounded border-gray-400 text-purple-600 focus:ring-purple-500">
         </div>
+        <dish-detail-modal :show="showDetails" :dish="dish" @close-modal="showDetails = false">
+        </dish-detail-modal>
     </li>
 </template>
 
 <script>
 import { currency, minutes } from '../utils/filters'
+import DishDetailModal from './DishDetailModal.vue'
 export default {
     name: "dish-card",
+    components: {
+        DishDetailModal,
+    },
     props: {
         dish: {
             type: Object,
@@ -45,7 +51,8 @@ export default {
     },
     data() {
         return {
-            checked: false
+            checked: false,
+            showDetails: false
         }
     },
     methods: {

@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&family=Roboto+Serif:wght@300&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    background: rgb(245, 20, 230);
+    background: radial-gradient(circle, rgba(245, 20, 230, 1) 0%, rgba(255, 255, 255, 1) 100%);
+}

@@ -7,13 +7,14 @@
         <div class="grid grid-cols-1 items-start gap-4 lg:grid-cols-2 lg:gap-8">
           <!-- Left column -->
           <div class="grid grid-cols-1 gap-4">
-            <dish-list :dishes="reactiveAvailablesDishes" :categories="categories">
+            <dish-list :dishes="reactiveAvailablesDishes" :categories="categories" :listType="'options'">
             </dish-list>
           </div>
 
           <!-- Right column -->
           <div class="grid grid-cols-1 gap-4">
-            <menu-selection :dishes="selectedDishes" :categories="categories"></menu-selection>
+            <dish-list :dishes="selectedDishes" :categories="categories" :listType="'selection'">
+            </dish-list>
           </div>
         </div>
       </div>
@@ -22,12 +23,8 @@
 </template>
 
 <script>
+import { categories as staticCategories } from "./utils/translations.js"
 import DishList from "./components/DishList.vue";
-import MenuSelection from "./components/MenuSelection.vue";
-// import { DayCategory } from "./enums/DayCategory.enum";
-// import { DishCategory } from "./enums/DishCategory.enum";
-// import { Mealtime } from "./enums/Mealtime.enum";
-// import { Dish } from "./interfaces/dish.interface"
 
 let availableDishes = [
   {
@@ -129,25 +126,20 @@ let availableDishes = [
 
 export default {
   name: "App",
-  components: { DishList, MenuSelection },
+  components: { DishList },
   data() {
     return {
       reactiveAvailablesDishes: availableDishes,
       selectedDishes: [],
-      inWork: true
     };
   },
   computed: {
     categories() {
-      return {
-        STARTER: "Vorspeise",
-        MAINCOURSE: "Hauptspeise",
-        DESSERT: "Dessert",
-        BEVERAGE: "Getränk",
-      }
+      return staticCategories
     },
   },
   mounted() {
+    console.log(staticCategories)
   }
 }
 </script>

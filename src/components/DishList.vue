@@ -40,7 +40,11 @@ export default {
         },
         categories: {
             type: Object,
-            default: () => []
+            default: () => { }
+        },
+        listType: {
+            type: String,
+            default: 'options'
         }
     },
     computed: {

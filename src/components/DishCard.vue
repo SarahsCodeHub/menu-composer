@@ -1,13 +1,13 @@
 <template>
-    <li class="col-span-1 flex rounded-md shadow-sm">
+    <li class="col-span-1 flex rounded-md shadow-sm mb-3">
         <div
             class="flex-shrink-0 flex items-center justify-center w-16 bg-purple-600 text-white text-sm font-medium rounded-l-md">
-            CD</div>
-        <div
-            class="flex flex-1 items-center justify-between truncate rounded-r-md border-t border-r border-b border-gray-200 bg-white">
+            {{ dish.preparationTimeInMinutes }} min</div>
+        <div class="flex flex-1 items-center justify-between truncate border-t  border-b border-gray-200 bg-white">
             <div class="flex-1 truncate px-4 py-2 text-sm">
-                <a href="#" class="font-medium text-gray-900 hover:text-gray-600">Component Design</a>
-                <p class="text-gray-500">12 Members</p>
+                <label :for="`dish-${dish.id}`" class="font-medium text-gray-900 hover:text-gray-600">{{ dish.name
+                }}</label>
+                <p :id="`dish-${dish.id}-price`" class="text-gray-500">{{ dish.price }} €</p>
             </div>
             <div class="flex-shrink-0 pr-2">
                 <button type="button"
@@ -22,6 +22,11 @@
                 </button>
             </div>
         </div>
+        <div
+            class="flex-shrink-0 flex items-center justify-center w-16 text-white text-sm font-medium rounded-r-md border-t border-r border-b border-gray-200">
+            <input v-model="checked" @change="addOrRemoveFromMenu" :id="dish.id" :name="dish.name" type="checkbox"
+                class="h-4 w-4 rounded border-gray-300 text-purple-600 focus:ring-purple-500">
+        </div>
     </li>
 </template>
 
@@ -33,6 +38,20 @@ export default {
             type: Object,
             default: () => { }
         },
+    },
+    data() {
+        return {
+            checked: false
+        }
+    },
+    methods: {
+        addOrRemoveFromMenu() {
+            if (this.checked) {
+                this.$emit('addDish', this.dish.id)
+            } else {
+                this.$emit('removeDish', this.dish.id)
+            }
+        }
     },
 }
 </script>

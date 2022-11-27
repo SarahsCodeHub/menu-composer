@@ -17,7 +17,7 @@
                 Es stehen leider keine Gerichte in dieser Kategorie zur Auswahl bereit.
             </div>
             <div v-for="dish in categorizedDishes[categoryKey]" :key="dish.id">
-                <dish-card :dish="dish"></dish-card>
+                <dish-card :dish="dish" @addDish="addDish" @removeDish="removeDish"></dish-card>
             </div>
         </section>
     </div>
@@ -49,6 +49,14 @@ export default {
 
             })
             return categorizedDishes;
+        }
+    },
+    methods: {
+        addDish(dishId) {
+            console.log(`Add Dish with id ${dishId}`)
+        },
+        removeDish(dishId) {
+            console.log(`Remove Dish with id ${dishId}`)
         }
     },
 }

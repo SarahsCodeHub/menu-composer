@@ -1,3 +1,5 @@
+import { categories, dayCategories, mealtimes, dishProperties } from "./translations"
+
 const currency = (value) => {
     if (!value || typeof value != 'number') return ''
     return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(value);
@@ -15,7 +17,31 @@ const minutes = (value, format = 'long') => {
     }
 }
 
+const translatedCategories = (value) => {
+    if (!value || !categories[value]) return ''
+    return categories[value]
+}
+
+const translatedDayCategories = (value) => {
+    if (!value || !dayCategories[value]) return ''
+    return dayCategories[value]
+}
+
+const translatedMealtimes = (value) => {
+    if (!value || !mealtimes[value]) return ''
+    return mealtimes[value]
+}
+
+const translatedDishProperties = (value) => {
+    if(!value) return ''
+    return dishProperties[value]
+} 
+
 export {
     currency,
-    minutes
+    minutes,
+    translatedCategories,
+    translatedDayCategories,
+    translatedMealtimes,
+    translatedDishProperties
 }

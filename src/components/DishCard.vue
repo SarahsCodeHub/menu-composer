@@ -36,7 +36,6 @@
 </template>
 
 <script>
-import { currency, minutes } from '../utils/filters'
 import DishDetailModal from './DishDetailModal.vue'
 export default {
     name: "dish-card",
@@ -63,10 +62,6 @@ export default {
                 this.$emit('remove-dish', this.dish.id)
             }
         }
-    },
-    filters: {
-        currency,
-        minutes
     }
 }
 </script>

@@ -39,20 +39,44 @@
                             </div>
                             <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
                                 <dl class="sm:divide-y sm:divide-gray-200">
-                                    <div v-for="(value, key) in listedDetails" :key="key"
-                                        class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                                        <dt class="text-sm font-medium text-gray-500">{{ key }}</dt>
-                                        <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{ value }}
+                                    <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                                        <dt class="text-sm font-medium text-gray-500">
+                                            {{ 'category' | translatedDishProperties }}
+                                        </dt>
+                                        <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                                            {{ dish.category | translatedCategories }}
                                         </dd>
                                     </div>
                                     <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                                        <dt class="text-sm font-medium text-gray-500">Zubereitungszeit</dt>
+                                        <dt class="text-sm font-medium text-gray-500">
+                                            {{ 'availableMealtimes' | translatedDishProperties }}
+                                        </dt>
+                                        <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                                            <span v-for="meal in dish.availableMealtimes" :key="meal">
+                                                {{ meal | translatedMealtimes }}<br />
+                                            </span>
+                                        </dd>
+                                    </div>
+                                    <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                                        <dt class="text-sm font-medium text-gray-500">
+                                            {{ 'availableDayCategory' | translatedDishProperties }}
+                                        </dt>
+                                        <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                                            {{ dish.availableDayCategory | translatedDayCategories }}
+                                        </dd>
+                                    </div>
+                                    <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                                        <dt class="text-sm font-medium text-gray-500">
+                                            {{ 'preparationTimeInMinutes' | translatedDishProperties }}
+                                        </dt>
                                         <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                                             {{ dish.preparationTimeInMinutes | minutes }}
                                         </dd>
                                     </div>
                                     <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                                        <dt class="text-sm font-medium text-gray-500">Preis</dt>
+                                        <dt class="text-sm font-medium text-gray-500">
+                                            {{ 'priceInEuro' | translatedDishProperties }}
+                                        </dt>
                                         <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                                             {{ dish.priceInEuro | currency }}
                                         </dd>
@@ -73,7 +97,6 @@
 </template>
 
 <script>
-import { currency, minutes } from "../utils/filters";
 import DietLabel from "./DietLabel.vue";
 
 export default {
@@ -93,7 +116,7 @@ export default {
     },
     computed: {
         listedDetails() {
-            const detailsToBeListed = ['availableDays', 'category'];
+            const detailsToBeListed = ['availableDayCategory', 'availableMealtimes', 'category'];
             let listedDetails = {}
             detailsToBeListed.map(detail => listedDetails[detail] = this.dish[detail]);
             return listedDetails;
@@ -105,11 +128,8 @@ export default {
         },
         addDishToMenu() {
             this.$emit('add-dish', this.dish.id)
+            this.closeModal()
         }
-    },
-    filters: {
-        currency,
-        minutes
     }
 }
 </script>

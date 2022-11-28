@@ -46,7 +46,7 @@ export default {
     methods: {
         addDishToMenu(newDish) {
             let dishIndex = this.selectedDishes.findIndex(dish => dish.id === newDish.id)
-            if (dishIndex === -1) {
+            if (dishIndex !== -1) {
                 return;
             } else {
                 this.selectedDishes.push(newDish)

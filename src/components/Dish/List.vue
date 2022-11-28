@@ -8,7 +8,7 @@
                             : 'Verfügbare Gerichte'
                     }}</h2>
                 </div>
-                <div v-if="listType === 'options'" @click="showNewModal = true"
+                <div v-if="listType === 'options'" @click="showEditModal = true"
                     class="absolute right-0 top-0 cursor-pointer">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-6 h-6">
@@ -18,9 +18,9 @@
                 </div>
             </div>
         </div>
-        <new-dish v-if="showNewModal" :showModal="showNewModal" @add-new-dish="addNewDish"
-            @close-modal="showNewModal = false">
-        </new-dish>
+        <edit-dish v-if="showEditModal" :showModal="showEditModal" @save-dish="saveDish"
+            @close-modal="showEditModal = false">
+        </edit-dish>
         <section v-for="(categoryName, categoryKey) in categories" :key="categoryKey" class="px-6" :id="categoryKey"
             :aria-labelledby="categoryKey">
             <h2 class="sr-only" :id="`section-${categoryKey}-title`">{{ categoryKey | translatedCategories }}</h2>
@@ -40,7 +40,8 @@
                 {{ placeholderForEmptyCategories }}
             </div>
             <div v-for="dish in categorizedDishes[categoryKey]" :key="dish.id">
-                <dish-card :dish="dish" @add-dish="addDishToMenu" @remove-dish="removeDishFromMenu"></dish-card>
+                <dish-card :dish="dish" @add-dish-to-menu="addDishToMenu" @remove-dish-from-menu="removeDishFromMenu">
+                </dish-card>
             </div>
         </section>
     </div>
@@ -48,13 +49,13 @@
 
 <script>
 import DishCard from "./Card.vue";
-import NewDish from "./New.vue";
+import EditDish from "./Edit.vue";
 
 export default {
     name: "dish-list",
     components: {
         DishCard,
-        NewDish
+        EditDish
     },
     props: {
         dishes: {
@@ -72,7 +73,7 @@ export default {
     },
     data() {
         return {
-            showNewModal: false
+            showEditModal: false
         }
     },
     computed: {
@@ -99,8 +100,7 @@ export default {
         removeDishFromMenu(dishId) {
             console.log(`Remove Dish with id ${dishId}`)
         },
-        openNewDish() { },
-        addNewDish() {
+        saveDish() {
 
         }
     },

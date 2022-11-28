@@ -95,7 +95,7 @@ export default {
             this.$emit('close-details')
         },
         addDishToMenu() {
-            this.$emit('add-new-dish', this.dish.id)
+            this.$emit('add-dish-to-menu', this.dish.id)
             this.closeDetails()
         }
     }

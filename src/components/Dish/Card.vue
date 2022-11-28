@@ -57,9 +57,9 @@ export default {
     methods: {
         addOrRemoveFromMenu() {
             if (this.checked) {
-                this.$emit('add-dish', this.dish.id)
+                this.$emit('add-dish-to-menu', this.dish.id)
             } else {
-                this.$emit('remove-dish', this.dish.id)
+                this.$emit('remove-dish-from-menu', this.dish.id)
             }
         }
     }

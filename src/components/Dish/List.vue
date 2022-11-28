@@ -8,19 +8,19 @@
                             : 'Verfügbare Gerichte'
                     }}</h2>
                 </div>
-                <div v-if="listType === 'options'" class="absolute right-0 top-0">
+                <div v-if="listType === 'options'" @click="showNewModal = true"
+                    class="absolute right-0 top-0 cursor-pointer">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-
-                    <!-- <button type="button"
-                        class="relative inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                        Gericht hinzufügen</button> -->
                 </div>
             </div>
         </div>
+        <new-dish v-if="showNewModal" :showModal="showNewModal" @add-new-dish="addNewDish"
+            @close-modal="showNewModal = false">
+        </new-dish>
         <section v-for="(categoryName, categoryKey) in categories" :key="categoryKey" class="px-6" :id="categoryKey"
             :aria-labelledby="categoryKey">
             <h2 class="sr-only" :id="`section-${categoryKey}-title`">{{ categoryKey | translatedCategories }}</h2>
@@ -40,7 +40,7 @@
                 {{ placeholderForEmptyCategories }}
             </div>
             <div v-for="dish in categorizedDishes[categoryKey]" :key="dish.id">
-                <dish-card :dish="dish" @add-dish="addDish" @remove-dish="removeDish"></dish-card>
+                <dish-card :dish="dish" @add-dish="addDishToMenu" @remove-dish="removeDishFromMenu"></dish-card>
             </div>
         </section>
     </div>
@@ -48,11 +48,13 @@
 
 <script>
 import DishCard from "./Card.vue";
+import NewDish from "./New.vue";
 
 export default {
     name: "dish-list",
     components: {
         DishCard,
+        NewDish
     },
     props: {
         dishes: {
@@ -66,6 +68,11 @@ export default {
         listType: {
             type: String,
             default: 'options'
+        }
+    },
+    data() {
+        return {
+            showNewModal: false
         }
     },
     computed: {
@@ -86,15 +93,16 @@ export default {
         }
     },
     methods: {
-        addDish(dishId) {
+        addDishToMenu(dishId) {
             console.log(`Add Dish with id ${dishId}`)
         },
-        removeDish(dishId) {
+        removeDishFromMenu(dishId) {
             console.log(`Remove Dish with id ${dishId}`)
+        },
+        openNewDish() { },
+        addNewDish() {
+
         }
-    },
-    mounted() {
-        console.log(this.categories);
     },
 }
 </script>

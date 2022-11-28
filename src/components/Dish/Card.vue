@@ -1,7 +1,7 @@
 <template>
     <li class="col-span-1 flex rounded-md shadow-sm mb-3">
         <div
-            class="flex-shrink-0 flex items-center justify-center w-16 bg-purple-600 text-white text-sm font-medium rounded-l-md">
+            class="flex-shrink-0 flex items-center justify-center w-16 bg-indigo-600 text-white text-sm font-medium rounded-l-md">
             {{ dish.preparationTimeInMinutes | minutes('short') }}</div>
         <div class="flex flex-1 items-center justify-between truncate border-t  border-b border-gray-200 bg-white">
             <div class="flex-1 truncate px-4 py-2 text-sm">
@@ -11,7 +11,7 @@
                 <p :id="`dish-${dish.id}-price`" class="text-gray-500">{{ dish.priceInEuro | currency }}</p>
             </div>
             <div class="flex-shrink-0 pr-2">
-                <button type="button" @click="showDetails = !showDetails"
+                <button type="button" @click="showDetails = true"
                     class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white bg-transparent text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                     <span class="sr-only">Zeige Details</span>
                     <!-- Heroicon name: mini/ellipsis-vertical -->
@@ -28,9 +28,9 @@
         <div
             class="flex-shrink-0 flex items-center justify-center w-16 text-white text-sm font-medium rounded-r-md border-t border-r border-b border-gray-200">
             <input v-model="checked" @change="addOrRemoveFromMenu" :id="dish.id" :name="dish.name" type="checkbox"
-                class="h-4 w-4 rounded border-gray-400 text-purple-600 focus:ring-purple-500">
+                class="h-4 w-4 rounded border-gray-400 text-indigo-600 focus:ring-indigo-500">
         </div>
-        <dish-detail :show="showDetails" :dish="dish" @close-details="showDetails = false">
+        <dish-detail :showModal="showDetails" :dish="dish" @close-details="showDetails = false">
         </dish-detail>
     </li>
 </template>

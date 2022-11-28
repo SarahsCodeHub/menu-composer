@@ -1,5 +1,5 @@
 <template>
-    <ui-modal :show="show" @close-modal="closeDetails">
+    <ui-modal :showModal="showModal" @close-modal="closeDetails">
         <template slot="header">
             <h3 class="text-lg font-medium leading-6 text-gray-900">{{ dish.name }}</h3>
             <p class="mt-1 max-w-2xl text-sm text-gray-500">{{ dish.shortDescription }}</p>
@@ -10,7 +10,7 @@
         </template>
         <template slot="content">
             <dl class="sm:divide-y sm:divide-gray-200">
-                <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6 sm:border-t sm:border-gray-200">
                     <dt class="text-sm font-medium text-gray-500">
                         {{ 'category' | translatedDishProperties }}
                     </dt>
@@ -18,7 +18,7 @@
                         {{ dish.category | translatedCategories }}
                     </dd>
                 </div>
-                <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6 sm:border-t sm:border-gray-200">
                     <dt class="text-sm font-medium text-gray-500">
                         {{ 'availableMealtimes' | translatedDishProperties }}
                     </dt>
@@ -28,7 +28,7 @@
                         </span>
                     </dd>
                 </div>
-                <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6 sm:border-t sm:border-gray-200">
                     <dt class="text-sm font-medium text-gray-500">
                         {{ 'availableDayCategory' | translatedDishProperties }}
                     </dt>
@@ -36,7 +36,7 @@
                         {{ dish.availableDayCategory | translatedDayCategories }}
                     </dd>
                 </div>
-                <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6 sm:border-t sm:border-gray-200">
                     <dt class="text-sm font-medium text-gray-500">
                         {{ 'preparationTimeInMinutes' | translatedDishProperties }}
                     </dt>
@@ -44,7 +44,7 @@
                         {{ dish.preparationTimeInMinutes | minutes }}
                     </dd>
                 </div>
-                <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6 sm:border-t sm:border-gray-200">
                     <dt class="text-sm font-medium text-gray-500">
                         {{ 'priceInEuro' | translatedDishProperties }}
                     </dt>
@@ -67,7 +67,7 @@ import UiModal from "../Ui/UiModal.vue";
 import DietLabel from "./DietLabel.vue";
 
 export default {
-    name: "dish-detail-modals",
+    name: "dish-detail",
     components: {
         DietLabel,
         UiModal
@@ -77,7 +77,7 @@ export default {
             type: Object,
             default: () => { }
         },
-        show: {
+        showModal: {
             type: Boolean,
             default: false
         }
@@ -95,7 +95,7 @@ export default {
             this.$emit('close-details')
         },
         addDishToMenu() {
-            this.$emit('add-dish', this.dish.id)
+            this.$emit('add-new-dish', this.dish.id)
             this.closeDetails()
         }
     }

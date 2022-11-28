@@ -18,14 +18,23 @@ const mealtimes = {
     alldaylong:  "ganztägig",
 };
 
+
+const dietCategories = {
+    vegetarian:  "vegetarisch",
+    vegan:  "vegan",
+    glutenfree : "glutenfrei",
+    lactosefree:  "laktosefrei",
+};
+
 const dishProperties = {
-    name: 'Name',
-    category: 'Kategorie',
-    availableMealtimes: 'Mahlzeiten',
-    availableDayCategory: 'Erhältlich',
-    active:'aktiv',
-    preparationTimeInMinutes: 'Zubereitungszeit',
-    priceInEuro: 'Preis'
+    name: "Name",
+    category: "Kategorie",
+    availableMealtimes: "Mahlzeiten",
+    availableDayCategory: "Erhältlich",
+    active:"aktiv",
+    preparationTimeInMinutes: "Zubereitungszeit",
+    priceInEuro: "Preis",
+    dietCategories: "Ernährungsformen"
 }
 
 
@@ -33,5 +42,6 @@ export {
     categories,
     dayCategories,
     mealtimes,
-    dishProperties
+    dishProperties,
+    dietCategories
 }

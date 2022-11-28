@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "tailwind-watch": "npx tailwindcss -i ./src/styles.css -o ./public/styles.css --watch",
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "npx tailwindcss -i ./src/styles.css -o ./public/styles.css --minify && npx vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {

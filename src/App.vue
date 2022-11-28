@@ -24,7 +24,7 @@
 
 <script>
 import { categories as staticCategories } from "./utils/translations.js"
-import DishList from "./components/DishList.vue";
+import DishList from "./components/Dish/List.vue";
 
 let availableDishes = [
   {

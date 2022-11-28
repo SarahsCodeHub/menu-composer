@@ -16,7 +16,7 @@
                         class="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
                         <div class="overflow-hidden">
                             <div class="px-4 pt-2 pb-5 sm:px-6">
-                                <div class="absolute top-0 right-0 hidden pt-6 pr-6 sm:block">
+                                <div class="absolute top-0 right-0 pt-6 pr-6 sm:block">
                                     <button type="button"
                                         class="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                                         @click="closeModal">

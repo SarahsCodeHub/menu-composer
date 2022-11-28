@@ -58,7 +58,7 @@
                             <div v-for="(value, key) in dietCategories" :key="key"
                                 class="relative flex items-start mb-1">
                                 <div class="flex h-5 items-center">
-                                    <input :id="key" :name="key" type="checkbox" :value="value"
+                                    <input :id="key" :name="key" type="checkbox" :value="key"
                                         v-model="dish.dietCategories"
                                         class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
                                 </div>
@@ -76,7 +76,7 @@
                             <legend class="sr-only">Mahlzeiten</legend>
                             <div v-for="(value, key) in mealtimes" :key="key" class="relative flex items-start mb-1">
                                 <div class="flex h-5 items-center">
-                                    <input :id="key" :name="key" type="checkbox" :value="value"
+                                    <input :id="key" :name="key" type="checkbox" :value="key"
                                         v-model="dish.availableMealtimes"
                                         class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
                                 </div>
@@ -95,7 +95,7 @@
                             <div v-for="(value, key) in dayCategories" :key="key"
                                 class="relative flex items-start mb-1">
                                 <div class="flex h-5 items-center">
-                                    <input :id="key" :name="key" type="radio" :value="value"
+                                    <input :id="key" :name="key" type="radio" :value="key"
                                         v-model="dish.availableDayCategory"
                                         class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500" />
                                 </div>
@@ -145,6 +145,8 @@
 </template>
 
 <script>
+import axios from "axios";
+import eventBus from "../../utils/eventBus";
 import { mealtimes, dietCategories, categories, dayCategories } from "../../utils/translations";
 import UiModal from "../Ui/UiModal.vue";
 
@@ -198,9 +200,14 @@ export default {
         closeModal() {
             this.$emit('close-modal');
         },
-        saveDish() {
-            this.$emit('save-dish', this.dish);
-            this.closeModal();
+        async saveDish() {
+            await axios.put('http://localhost:9000/dishes', this.dish)
+                .then((response) => {
+                    this.dish = response.data.data
+                    eventBus.$emit('saved-dish', this.dish)
+                })
+                .catch(error => console.log(error))
+                .finally(this.closeModal())
         }
     }
 }

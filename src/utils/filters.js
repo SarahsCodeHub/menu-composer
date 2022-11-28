@@ -1,8 +1,8 @@
 import { categories, dayCategories, mealtimes, dishProperties } from "./translations"
 
 const currency = (value) => {
-    if (!value || typeof value != 'number') return ''
-    return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(value);
+    if (!value) return ''
+    return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(parseFloat(value));
 }
 
 const minutes = (value, format = 'long') => {

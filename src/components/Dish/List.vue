@@ -18,8 +18,7 @@
                 </div>
             </div>
         </div>
-        <edit-dish v-if="showEditModal" :show-modal="showEditModal" @save-dish="saveDish"
-            @close-modal="showEditModal = false">
+        <edit-dish v-if="showEditModal" :show-modal="showEditModal" @close-modal="showEditModal = false">
         </edit-dish>
         <section v-for="(categoryName, categoryKey) in categories" :key="categoryKey" class="px-6" :id="categoryKey"
             :aria-labelledby="categoryKey">
@@ -98,11 +97,6 @@ export default {
             } else {
                 return "option"
             }
-        }
-    },
-    methods: {
-        saveDish() {
-
         }
     },
 }

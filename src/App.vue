@@ -55,11 +55,21 @@ export default {
         removeDishFromMenu(dishId) {
             this.selectedDishes = this.selectedDishes.filter(dish => (dish.id !== dishId))
         },
-        async fetchDishes() {
-            const dishesResponse = await axios.get('http://localhost:9000/dishes')
-                .catch(error => console.log(error))
-            this.availableDishes = dishesResponse.data.data
+        updateDishes(updatedDish) {
+            let dishIndex = this.availableDishes.findIndex(dish => dish.id === updatedDish.id)
+            if (dishIndex === -1) {
+                this.availableDishes.push(updatedDish)
+            } else {
+                this.selectedDishes[dishIndex] = updatedDish
+            }
         },
+        async fetchDishes() {
+            await axios.get('http://localhost:9000/dishes')
+                .then((response) => {
+                    this.availableDishes = response.data.data
+                })
+                .catch(error => console.log(error))
+        }
     },
     async mounted() {
         eventBus.$on("add-dish-to-menu", (dish) => {
@@ -67,6 +77,9 @@ export default {
         })
         eventBus.$on("remove-dish-from-menu", (dishId) => {
             this.removeDishFromMenu(dishId)
+        })
+        eventBus.$on("saved-dish", (dish) => {
+            this.updateDishes(dish)
         })
         await this.fetchDishes();
     },

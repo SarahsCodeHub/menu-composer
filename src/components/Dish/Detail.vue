@@ -82,14 +82,6 @@ export default {
             default: false
         }
     },
-    computed: {
-        listedDetails() {
-            const detailsToBeListed = ['availableDayCategory', 'availableMealtimes', 'category'];
-            let listedDetails = {}
-            detailsToBeListed.map(detail => listedDetails[detail] = this.dish[detail]);
-            return listedDetails;
-        }
-    },
     methods: {
         closeDetails() {
             this.$emit('close-details')

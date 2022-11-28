@@ -156,11 +156,9 @@ export default {
     },
     mounted() {
         eventBus.$on("add-dish-to-menu", (dish) => {
-            console.log("add on from app")
             this.addDishToMenu(dish)
         });
         eventBus.$on("remove-dish-from-menu", (dishId) => {
-            console.log("remove on from app")
             this.removeDishFromMenu(dishId)
         })
     },

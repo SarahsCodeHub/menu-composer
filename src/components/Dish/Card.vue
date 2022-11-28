@@ -25,17 +25,20 @@
                 </button>
             </div>
         </div>
-        <div
-            class="flex-shrink-0 flex items-center justify-center w-16 text-white text-sm font-medium rounded-r-md border-t border-r border-b border-gray-200">
-            <input v-model="checked" @change="addOrRemoveFromMenu" :id="dish.id" :name="dish.name" type="checkbox"
+        <div class="flex-shrink-0 flex items-center justify-center text-white text-sm font-medium rounded-r-md border-t border-r border-b border-gray-200"
+            :class="cardType === 'option' ? 'w-16' : 'w-1'">
+            <input v-if="cardType === 'option'" v-model="checked" @change="addToOrRemoveFromMenu" :id="dish.id"
+                :name="dish.name" type="checkbox"
                 class="h-4 w-4 rounded border-gray-400 text-indigo-600 focus:ring-indigo-500">
         </div>
-        <dish-detail :showModal="showDetails" :dish="dish" @close-details="showDetails = false">
+        <dish-detail :showModal="showDetails" :dish="dish" @close-details="showDetails = false"
+            @add-dish-to-menu="addToMenu">
         </dish-detail>
     </li>
 </template>
 
 <script>
+import eventBus from "../../utils/eventBus";
 import DishDetail from './Detail.vue'
 export default {
     name: "dish-card",
@@ -47,6 +50,10 @@ export default {
             type: Object,
             default: () => { }
         },
+        cardType: {
+            type: String,
+            default: 'option'
+        }
     },
     data() {
         return {
@@ -55,12 +62,16 @@ export default {
         }
     },
     methods: {
-        addOrRemoveFromMenu() {
+        addToOrRemoveFromMenu() {
             if (this.checked) {
-                this.$emit('add-dish-to-menu', this.dish.id)
+                eventBus.$emit('add-dish-to-menu', this.dish)
             } else {
-                this.$emit('remove-dish-from-menu', this.dish.id)
+                eventBus.$emit('remove-dish-from-menu', this.dish.id)
             }
+        },
+        addToMenu() {
+            eventBus.$emit('add-dish-to-menu', this.dish)
+            this.checked = true
         }
     }
 }

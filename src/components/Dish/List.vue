@@ -18,7 +18,7 @@
                 </div>
             </div>
         </div>
-        <edit-dish v-if="showEditModal" :showModal="showEditModal" @save-dish="saveDish"
+        <edit-dish v-if="showEditModal" :show-modal="showEditModal" @save-dish="saveDish"
             @close-modal="showEditModal = false">
         </edit-dish>
         <section v-for="(categoryName, categoryKey) in categories" :key="categoryKey" class="px-6" :id="categoryKey"
@@ -40,7 +40,7 @@
                 {{ placeholderForEmptyCategories }}
             </div>
             <div v-for="dish in categorizedDishes[categoryKey]" :key="dish.id">
-                <dish-card :dish="dish" @add-dish-to-menu="addDishToMenu" @remove-dish-from-menu="removeDishFromMenu">
+                <dish-card :dish="dish" :card-type="cardType">
                 </dish-card>
             </div>
         </section>
@@ -68,7 +68,7 @@ export default {
         },
         listType: {
             type: String,
-            default: 'options'
+            default: "options"
         }
     },
     data() {
@@ -86,20 +86,21 @@ export default {
             return categorizedDishes;
         },
         placeholderForEmptyCategories() {
-            if (this.listType === 'selection') {
+            if (this.listType === "selection") {
                 return "-"
             } else {
                 return "Es stehen leider keine Gerichte in dieser Kategorie zur Auswahl bereit."
             }
+        },
+        cardType() {
+            if (this.listType === "selection") {
+                return "selected"
+            } else {
+                return "option"
+            }
         }
     },
     methods: {
-        addDishToMenu(dishId) {
-            console.log(`Add Dish with id ${dishId}`)
-        },
-        removeDishFromMenu(dishId) {
-            console.log(`Remove Dish with id ${dishId}`)
-        },
         saveDish() {
 
         }
